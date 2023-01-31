@@ -9,6 +9,9 @@
 </head>
 <body>
 	<h1>Hello and welcome <%=request.getAttribute("nume") %>, you are now in the member area</h1>
-	<a href="login.jsp">Logout</a>
+	<form action="<%=request.getContextPath() %>/MemberAreaController">
+		<input type="hidden" name="action" value="destroy" method="get">
+		<input type="submit" value="Logout">
+	</form>
 </body>
 </html>
