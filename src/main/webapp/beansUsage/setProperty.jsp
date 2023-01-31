@@ -8,11 +8,19 @@
 </head>
 <body>
 
-<jsp:useBean id="user" class="org.Beans.User" scope="session"></jsp:useBean>
+
+<!-- Si aici trebuie sa fie scope = request -->
+<jsp:useBean id="user" class="org.Beans.User" scope="request"></jsp:useBean>
 <jsp:setProperty property="firstName" name="user" value="User"/>
 <jsp:setProperty property="lastName" name="user" value="Usererescu"/>
 
 	<h1>Values has been set </h1>
+	
+	<%
+		request.getRequestDispatcher("getProperty.jsp").forward(request, response);
+	%>
+	
+	<!-- Acum pe aceasta pagina se va face si set dar si display din pagina getProperty.jsp -->
 
 </body>
 </html>

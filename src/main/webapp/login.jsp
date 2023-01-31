@@ -21,7 +21,7 @@
 	 -->
 	
 	<!-- Acum intr-un Servlet(Controller) -->
-	<form action="<%=request.getContextPath()%>/TestServletController" method="post">
+	<form action="<%=request.getContextPath()%>/SiteController" method="post">
 		<label for="name">Name :</label>
 		<input type="text" id="name" name="name" placeholder="Enter your name" required><br>
 		<label for="password">Password</label>

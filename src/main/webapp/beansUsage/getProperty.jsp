@@ -8,7 +8,8 @@
 </head>
 <body>
 
-<jsp:useBean id="user" class="org.Beans.User" scope="session"></jsp:useBean>
+<!-- Daca am schimbat scope=ul in request acum putem face request de pe alta pagina cum ar fi de pe setProperty -->
+<jsp:useBean id="user" class="org.Beans.User" scope="request"></jsp:useBean>
 First name : <jsp:getProperty property="firstName" name="user"/>
 Last name : <jsp:getProperty property="lastName" name="user"/>
 
