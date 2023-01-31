@@ -3,6 +3,7 @@ package Controllers;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,6 +35,10 @@ public class SiteController extends HttpServlet {
 			HttpSession newSession = request.getSession(true);
 			//si mai setam un timp maxim de inactivitate
 			newSession.setMaxInactiveInterval(300); //300 sec
+			//Creare cookie
+			Cookie cUsername = new Cookie("username", name);
+			response.addCookie(cUsername);
+			
 			request.getRequestDispatcher("memberArea.jsp").forward(request, response);
 		}else {
 			response.sendRedirect("login.jsp");
