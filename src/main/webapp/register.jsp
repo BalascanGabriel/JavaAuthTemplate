@@ -20,11 +20,14 @@
 		<input type="submit" value="Submit" id="submitBtn">
 	</form>
 	
-<div id="code">
+<div id="codeDiv">
 	
-	<form action="" method="post">
+	<form id="code" action="" method="post" style="">
 	
-	 <input type="text" name="code" size="6">
+	 <input type="text" name="code" maxlength="1">
+	 <input type="text" name="code" maxlength="1">
+	 <input type="text" name="code" maxlength="1">
+	 <input type="text" name="code" maxlength="1">
      <input type="submit" value="Verify email code">
 	
 	</form>
@@ -38,6 +41,9 @@ document.getElementById("code").style.display = "none";
 document.getElementById("submitBtn").addEventListener("click", function() {
 	  document.getElementById("code").style.display = "block";
 	  document.getElementById("submitBtn").style.display = "none";
+	  document.getElementById("code").style.display="flex";
+	  document.getElementById("code").style.width="30%";
+	  document.getElementById("codeDiv").style.margin="auto";
 	});
 </script>
 	
