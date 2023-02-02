@@ -14,37 +14,56 @@ import javax.websocket.Session;
 @WebServlet("/SiteController")
 public class SiteController extends HttpServlet {
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().print("Welcome to Site CONTROLLER");
-	}
-
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String action = request.getParameter("action");
+		switch (action) {
 		
-		String name,password;
-		name = request.getParameter("name");
-		password = request.getParameter("password");
-		
-		request.setAttribute("nume", name);
-		
-		//Aici ar trebui sa facem verificarile, dar o sa o facem doar de simulare
-		if(name.equals("Gabe") && password.equals("gabe")) {
-			//se invalideaza sesiunea daca exista vreuna
-			request.getSession().invalidate();
-			//se porneste alta sesiune
-			HttpSession newSession = request.getSession(true);
-			//si mai setam un timp maxim de inactivitate
-			newSession.setMaxInactiveInterval(300); //300 sec
-			//Creare cookie
-			Cookie cUsername = new Cookie("username", name);
-			response.addCookie(cUsername);
+		case "login":
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+			break;
 			
-			request.getRequestDispatcher("memberArea.jsp").forward(request, response);
-		}else {
-			response.sendRedirect("login.jsp");
+		case "register":
+			request.getRequestDispatcher("register.jsp").forward(request, response);
+			break;
+		default:
+			break;
 		}
-		
-		
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String action = request.getParameter("action");
+		switch (action) {
+		case "loginSubmit":
+			authenticate(request, response);
+			break;
+
+		default:
+			break;
+		}
+
+	}
+	public void authenticate(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		
+		if(username.equals("Gabe") && password.equals("gabe")) {
+			//Invalidating session if any
+			request.getSession().invalidate();
+			HttpSession newSession = request.getSession(true);
+		    newSession.setMaxInactiveInterval(300);
+		    newSession.setAttribute("username", username);
+		    String encode = response.encodeUrl(request.getContextPath());
+		    response.sendRedirect(encode +"/MemberAreaController?action=memberArea");
+			
+		}else {
+			response.sendRedirect(request.getContextPath()+"/SiteController?action=login");
+		}
+	}
 }

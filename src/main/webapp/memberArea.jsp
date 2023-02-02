@@ -5,13 +5,28 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="welcomeStyle.css">
+
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Hello and welcome <%=request.getAttribute("nume") %>, you are now in the member area</h1>
-	<form action="<%=request.getContextPath() %>/MemberAreaController">
-		<input type="hidden" name="action" value="destroy" method="get">
-		<input type="submit" value="Logout">
-	</form>
+<%
+		String username = null, sessionID = null;
+	    if(request.getSession().getAttribute("username") == null){
+	    	response.sendRedirect(request.getContextPath()+"/SiteController?action=login");
+	    }else{
+	    	username = request.getSession().getAttribute("username").toString();
+	    	sessionID = request.getSession().getId();
+	    }
+	 
+
+	%>
+	Username:
+	<%=username%><br /> Current session:
+	<%=sessionID%><br /> memberArea!!
+    <form action="<%= request.getContextPath()%>/MemberAreaController" method="get">
+    <input type="hidden" name="action" value="destroy">
+    <input type="submit" value="logout">
+    </form>
 </body>
 </html>
