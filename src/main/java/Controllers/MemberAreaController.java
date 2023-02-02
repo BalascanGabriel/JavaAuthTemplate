@@ -22,9 +22,15 @@ public class MemberAreaController extends HttpServlet {
 			request.getSession().invalidate();		
 			response.sendRedirect(request.getContextPath()+"/SiteController?action=login");
 			break;
+			
 		case "memberArea":
 			request.getRequestDispatcher("memberArea.jsp").forward(request, response);
 			break;
+			
+		case "memberOnly":
+			request.getRequestDispatcher("memberOnly.jsp").forward(request, response);
+			break;
+			
 		default:
 			 
 			break;
