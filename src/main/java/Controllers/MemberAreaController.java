@@ -10,37 +10,30 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
-/**
- * Servlet implementation class MemberAreaController
- */
+
 @WebServlet("/MemberAreaController")
 public class MemberAreaController extends HttpServlet {
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String action = request.getParameter("action");
-		if(action.equals("destroy")) {
-			//Deci daca am apasat pe Logout
-			//Invalidam sesiunea
-			request.getSession().invalidate();
-			//Nu e de ajuns pentru ca oricum se creeaza alta sesiune in background
-			//Si userul oricum nu e deconectat
-			Cookie[] cookies = request.getCookies();
-			for(Cookie cookie : cookies) {
-				if(cookie.getName().equals("username")) {
-					//Valoarea cookie-ului curent cu numele username devine null
-					cookie.setValue(null);
-					cookie.setMaxAge(0);
-					response.addCookie(cookie);
-				}
-			}
-			//SI ASA SE FACE UN LOGOUT CONFORM
-			response.sendRedirect("login.jsp");
+		switch (action) {
+		case "destroy":
+			request.getSession().invalidate();		
+			response.sendRedirect(request.getContextPath()+"/SiteController?action=login");
+			break;
+		case "memberArea":
+			request.getRequestDispatcher("memberArea.jsp").forward(request, response);
+			break;
+		default:
+			 
+			break;
 		}
 	}
 
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
-
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);}
 }
