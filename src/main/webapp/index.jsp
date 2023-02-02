@@ -15,7 +15,7 @@
 		//request.getRequestDispatcher("forward.jsp").forward(request, response);
 	
 			//Exemplu de redirectare
-		response.sendRedirect("login.jsp");
+		//response.sendRedirect("login.jsp");
 	%>
 
 </body>
